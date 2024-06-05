@@ -26,8 +26,12 @@ output_file="responsive_ips.txt"
 # Iterate over the IP range
 for ((i=start_int; i<=end_int; i++)); do
   ip=$(int_to_ip $i)
-  if ping -c 2 -W 2 $ip > /dev/null; then
+  echo "Pinging $ip..."
+  if ping -c 2 -W 2 $ip; then
+    echo "$ip is responsive."
     echo "$ip" >> $output_file
+  else
+    echo "$ip is not responsive."
   fi
   sleep 2
 done
